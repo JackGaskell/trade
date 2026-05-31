@@ -13,6 +13,9 @@
             'invoice-created' => 'Invoice created successfully.',
             'invoice-updated' => 'Invoice updated successfully.',
             'invoice-deleted' => 'Invoice deleted successfully.',
+            'expense-created' => 'Expense recorded successfully.',
+            'expense-updated' => 'Expense updated successfully.',
+            'expense-deleted' => 'Expense deleted successfully.',
             'profile-updated' => 'Profile updated successfully.',
             'business-profile-updated' => 'Business profile saved successfully.',
         ];

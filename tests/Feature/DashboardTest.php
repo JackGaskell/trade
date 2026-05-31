@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\Job;
 use App\Models\Quote;
@@ -166,5 +167,46 @@ class DashboardTest extends TestCase
             ->assertSee('Recent Invoices')
             ->assertSee($invoice->invoice_number)
             ->assertSee('£500.00');
+    }
+
+    public function test_dashboard_shows_expenses_this_month(): void
+    {
+        $user = User::factory()->create();
+
+        Expense::factory()->for($user)->create([
+            'expense_date' => now(),
+            'amount' => 150,
+        ]);
+        Expense::factory()->for($user)->create([
+            'expense_date' => now()->subMonths(2),
+            'amount' => 999,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('dashboard'))
+            ->assertOk()
+            ->assertSee('Expenses This Month')
+            ->assertSee('£150.00');
+    }
+
+    public function test_dashboard_shows_profit_estimate(): void
+    {
+        ['user' => $user, 'job' => $job] = $this->createUserWithJob();
+
+        Invoice::factory()->for($job)->create([
+            'amount' => 1000,
+            'status' => Invoice::STATUS_PAID,
+            'updated_at' => now(),
+        ]);
+        Expense::factory()->for($user)->create([
+            'expense_date' => now(),
+            'amount' => 250,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('dashboard'))
+            ->assertOk()
+            ->assertSee('Profit Estimate')
+            ->assertSee('£750.00');
     }
 }

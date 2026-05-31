@@ -3,6 +3,7 @@
 use App\Http\Controllers\BusinessProfileController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProfileController;
@@ -21,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('clients', ClientController::class);
     Route::resource('jobs', JobController::class);
     Route::resource('quotes', QuoteController::class);
+    Route::get('expenses/{expense}/receipt', [ExpenseController::class, 'receipt'])->name('expenses.receipt');
+    Route::resource('expenses', ExpenseController::class);
     Route::resource('invoices', InvoiceController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
