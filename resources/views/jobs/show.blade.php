@@ -20,7 +20,7 @@
                 </div>
                 <div>
                     <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Client</dt>
-                    <dd class="mt-1 text-sm"><a href="{{ route('clients.show', $job->client) }}" class="font-medium text-brand-600 hover:text-brand-700">{{ $job->client->name }}</a></dd>
+                    <dd class="mt-1 text-sm"><a href="{{ route('clients.show', $job->client) }}" class="text-link">{{ $job->client->name }}</a></dd>
                 </div>
                 <div>
                     <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Created</dt>
@@ -57,11 +57,11 @@
                         <tbody>
                             @foreach ($job->quotes as $quote)
                                 <tr>
-                                    <td><a href="{{ route('quotes.show', $quote) }}" class="font-semibold text-slate-900 hover:text-brand-600">{{ $quote->quote_number }}</a></td>
+                                    <td><a href="{{ route('quotes.show', $quote) }}" class="row-link">{{ $quote->quote_number }}</a></td>
                                     <td class="font-semibold">{{ $quote->formattedAmount() }}</td>
                                     <td>@include('quotes._status-badge', ['status' => $quote->status])</td>
                                     <td class="hidden text-slate-600 sm:table-cell">{{ $quote->valid_until?->format('d M Y') ?? '—' }}</td>
-                                    <td class="text-right"><a href="{{ route('quotes.show', $quote) }}" class="text-sm font-medium text-brand-600">View</a></td>
+                                    <td class="text-right"><a href="{{ route('quotes.show', $quote) }}" class="text-link text-sm">View</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -80,11 +80,11 @@
                         <tbody>
                             @foreach ($job->invoices as $invoice)
                                 <tr class="{{ $invoice->status === 'overdue' ? 'bg-red-50/60' : ($invoice->status === 'sent' ? 'bg-amber-50/30' : '') }}">
-                                    <td><a href="{{ route('invoices.show', $invoice) }}" class="font-semibold text-slate-900 hover:text-brand-600">{{ $invoice->invoice_number }}</a></td>
+                                    <td><a href="{{ route('invoices.show', $invoice) }}" class="row-link">{{ $invoice->invoice_number }}</a></td>
                                     <td class="font-semibold {{ $invoice->isUnpaid() ? 'text-amber-900' : '' }}">{{ $invoice->formattedAmount() }}</td>
                                     <td>@include('invoices._status-badge', ['status' => $invoice->status])</td>
                                     <td class="hidden sm:table-cell {{ $invoice->status === 'overdue' ? 'text-red-700 font-medium' : 'text-slate-600' }}">{{ $invoice->due_date?->format('d M Y') ?? '—' }}</td>
-                                    <td class="text-right"><a href="{{ route('invoices.show', $invoice) }}" class="text-sm font-medium text-brand-600">View</a></td>
+                                    <td class="text-right"><a href="{{ route('invoices.show', $invoice) }}" class="text-link text-sm">View</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -104,10 +104,10 @@
                             @foreach ($job->expenses as $expense)
                                 <tr>
                                     <td class="text-slate-600">{{ $expense->expense_date->format('d M Y') }}</td>
-                                    <td><a href="{{ route('expenses.show', $expense) }}" class="font-semibold text-slate-900 hover:text-brand-600">{{ $expense->supplier }}</a></td>
+                                    <td><a href="{{ route('expenses.show', $expense) }}" class="row-link">{{ $expense->supplier }}</a></td>
                                     <td>@include('expenses._category-badge', ['category' => $expense->category])</td>
                                     <td class="font-semibold">{{ $expense->formattedAmount() }}</td>
-                                    <td class="text-right"><a href="{{ route('expenses.show', $expense) }}" class="text-sm font-medium text-brand-600">View</a></td>
+                                    <td class="text-right"><a href="{{ route('expenses.show', $expense) }}" class="text-link text-sm">View</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

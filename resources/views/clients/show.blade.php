@@ -14,7 +14,7 @@
                     <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Email</dt>
                     <dd class="mt-1 text-sm text-slate-900">
                         @if ($client->email)
-                            <a href="mailto:{{ $client->email }}" class="text-brand-600 hover:text-brand-700">{{ $client->email }}</a>
+                            <a href="mailto:{{ $client->email }}" class="text-link">{{ $client->email }}</a>
                         @else — @endif
                     </dd>
                 </div>
@@ -22,7 +22,7 @@
                     <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Phone</dt>
                     <dd class="mt-1 text-sm text-slate-900">
                         @if ($client->phone)
-                            <a href="tel:{{ $client->phone }}" class="text-brand-600 hover:text-brand-700">{{ $client->phone }}</a>
+                            <a href="tel:{{ $client->phone }}" class="text-link">{{ $client->phone }}</a>
                         @else — @endif
                     </dd>
                 </div>
@@ -63,12 +63,12 @@
                             @foreach ($client->jobs as $job)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('jobs.show', $job) }}" class="font-semibold text-slate-900 hover:text-brand-600">{{ $job->title }}</a>
+                                        <a href="{{ route('jobs.show', $job) }}" class="row-link">{{ $job->title }}</a>
                                     </td>
                                     <td>@include('jobs._status-badge', ['status' => $job->status])</td>
                                     <td class="hidden text-slate-600 sm:table-cell">{{ $job->scheduled_date?->format('d M Y') ?? '—' }}</td>
                                     <td class="text-right">
-                                        <a href="{{ route('jobs.show', $job) }}" class="text-sm font-medium text-brand-600 hover:text-brand-700">View</a>
+                                        <a href="{{ route('jobs.show', $job) }}" class="text-sm font-medium text-link">View</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -12,10 +12,10 @@
 
     <x-ui.flash />
 
-    <div class="mb-6 flex items-center justify-between rounded-xl border border-slate-200/80 bg-white px-5 py-4 shadow-card">
+    <div class="stat-card mb-6 flex items-center justify-between">
         <div>
-            <p class="text-sm font-medium text-slate-500">This month</p>
-            <p class="mt-0.5 text-2xl font-bold text-slate-900">{{ \App\Models\Invoice::formatMoney($expensesThisMonth) }}</p>
+            <p class="metric-label">This month</p>
+            <p class="mt-0.5 money text-2xl font-bold text-slate-900">{{ \App\Models\Invoice::formatMoney($expensesThisMonth) }}</p>
         </div>
         <p class="hidden text-sm text-slate-500 sm:block">{{ now()->format('F Y') }}</p>
     </div>
@@ -46,7 +46,7 @@
                             <tr>
                                 <td class="text-slate-600">{{ $expense->expense_date->format('d M Y') }}</td>
                                 <td>
-                                    <a href="{{ route('expenses.show', $expense) }}" class="font-semibold text-slate-900 hover:text-brand-600">
+                                    <a href="{{ route('expenses.show', $expense) }}" class="row-link">
                                         {{ $expense->supplier }}
                                     </a>
                                     @if ($expense->description)
@@ -59,14 +59,14 @@
                                 <td class="font-semibold text-slate-900">{{ $expense->formattedAmount() }}</td>
                                 <td class="hidden text-slate-600 md:table-cell">
                                     @if ($expense->job)
-                                        <a href="{{ route('jobs.show', $expense->job) }}" class="hover:text-brand-600">{{ $expense->job->title }}</a>
+                                        <a href="{{ route('jobs.show', $expense->job) }}" class="text-slate-600 hover:text-cyan-600">{{ $expense->job->title }}</a>
                                     @else
                                         —
                                     @endif
                                 </td>
                                 <td class="hidden lg:table-cell">
                                     @if ($expense->hasReceipt())
-                                        <a href="{{ route('expenses.receipt', $expense) }}" class="text-sm font-medium text-brand-600 hover:text-brand-700" target="_blank">View</a>
+                                        <a href="{{ route('expenses.receipt', $expense) }}" class="text-link text-sm" target="_blank">View</a>
                                     @else
                                         <span class="text-slate-400">—</span>
                                     @endif

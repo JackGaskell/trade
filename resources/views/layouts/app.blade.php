@@ -12,7 +12,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans bg-surface">
+    <body class="font-sans text-slate-900 antialiased">
         <div x-data="{ sidebarOpen: false }" class="min-h-screen">
             {{-- Mobile overlay --}}
             <div
@@ -23,17 +23,17 @@
                 x-transition:leave="transition-opacity ease-linear duration-200"
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
-                class="fixed inset-0 z-40 bg-slate-900/50 lg:hidden"
+                class="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-sm lg:hidden"
                 @click="sidebarOpen = false"
                 style="display: none;"
             ></div>
 
             @include('layouts.partials.sidebar')
 
-            <div class="lg:pl-64">
+            <div class="workspace lg:pl-60">
                 @include('layouts.partials.topbar')
 
-                <main class="p-4 sm:p-6 lg:p-8">
+                <main class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
                     {{ $slot }}
                 </main>
             </div>

@@ -21,7 +21,7 @@
                         x-show="show"
                         x-transition
                         x-init="setTimeout(() => show = false, 3000)"
-                        class="text-sm font-medium text-emerald-600"
+                        class="text-link text-sm"
                     >Saved.</p>
                 @endif
             </div>
