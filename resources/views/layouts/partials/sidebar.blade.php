@@ -14,16 +14,8 @@
     :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
     class="fixed inset-y-0 left-0 z-50 flex w-60 flex-col border-r border-slate-200/80 bg-white transition-transform duration-200 ease-in-out lg:translate-x-0"
 >
-    <div class="flex h-14 items-center gap-3 px-5">
-        <div class="brand-mark">
-            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-        </div>
-        <div>
-            <p class="text-sm font-bold tracking-tight text-slate-900">The Trade Tool</p>
-            <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Finance</p>
-        </div>
+    <div class="flex h-14 items-center border-b border-slate-100/80 px-5">
+        <x-ui.logo href="{{ route('dashboard') }}" size="md" />
     </div>
 
     <nav class="flex-1 space-y-0.5 px-3 py-2">

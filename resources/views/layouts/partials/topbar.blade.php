@@ -10,7 +10,7 @@
 
     <div class="flex flex-1 items-center justify-between">
         <div class="lg:hidden">
-            <p class="text-sm font-bold text-slate-900">The Trade Tool</p>
+            <x-ui.logo href="{{ route('dashboard') }}" size="sm" :show-text="true" />
         </div>
 
         <div class="hidden lg:block">
