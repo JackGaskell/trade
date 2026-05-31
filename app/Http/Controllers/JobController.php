@@ -59,7 +59,12 @@ class JobController extends Controller
      */
     public function show(Job $job): View
     {
-        $job->load(['client', 'quotes' => fn ($query) => $query->latest(), 'invoices' => fn ($query) => $query->latest()]);
+        $job->load([
+            'client',
+            'quotes' => fn ($query) => $query->latest(),
+            'invoices' => fn ($query) => $query->latest(),
+            'expenses' => fn ($query) => $query->latest('expense_date'),
+        ]);
 
         return view('jobs.show', compact('job'));
     }

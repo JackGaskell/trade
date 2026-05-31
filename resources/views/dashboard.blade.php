@@ -5,7 +5,7 @@
     />
 
     {{-- Stat cards --}}
-    <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <x-ui.stat-card
             label="Outstanding Invoices"
             :value="\App\Models\Invoice::formatMoney($outstandingTotal)"
@@ -32,6 +32,19 @@
             :value="$activeJobs"
             hint="In progress or pending"
             :href="route('jobs.index')"
+        />
+        <x-ui.stat-card
+            label="Expenses This Month"
+            :value="\App\Models\Invoice::formatMoney($expensesThisMonth)"
+            :hint="now()->format('F Y')"
+            :href="route('expenses.index')"
+        />
+        <x-ui.stat-card
+            label="Profit Estimate"
+            :value="\App\Models\Invoice::formatMoney($profitEstimate)"
+            hint="Paid income minus expenses this month"
+            :href="route('expenses.index')"
+            :variant="$profitEstimate >= 0 ? 'success' : 'danger'"
         />
     </div>
 

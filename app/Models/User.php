@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasMany(Job::class);
     }
 
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(Expense::class);
+    }
+
     public function quotes(): HasManyThrough
     {
         return $this->hasManyThrough(Quote::class, Job::class);

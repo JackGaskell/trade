@@ -3,6 +3,7 @@
 namespace Tests\Concerns;
 
 use App\Models\Client;
+use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\Job;
 use App\Models\Quote;
@@ -52,5 +53,16 @@ trait CreatesTradeData
         $invoice = Invoice::factory()->for($job)->create($invoiceAttributes);
 
         return compact('user', 'client', 'job', 'invoice');
+    }
+
+    /**
+     * @return array{user: User, client: Client, job: Job, expense: Expense}
+     */
+    protected function createUserWithExpense(array $expenseAttributes = [], array $jobAttributes = []): array
+    {
+        ['user' => $user, 'client' => $client, 'job' => $job] = $this->createUserWithJob($jobAttributes);
+        $expense = Expense::factory()->for($user)->for($job)->create($expenseAttributes);
+
+        return compact('user', 'client', 'job', 'expense');
     }
 }

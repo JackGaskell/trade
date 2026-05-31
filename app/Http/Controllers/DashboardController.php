@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\Job;
 use App\Models\Quote;
@@ -32,6 +33,19 @@ class DashboardController extends Controller
         $activeJobs = $user->jobs()
             ->whereNotIn('status', [Job::STATUS_COMPLETED, Job::STATUS_CANCELLED])
             ->count();
+
+        $expensesThisMonth = $user->expenses()
+            ->whereYear('expense_date', now()->year)
+            ->whereMonth('expense_date', now()->month)
+            ->sum('amount');
+
+        $paidIncomeThisMonth = $user->invoices()
+            ->where('invoices.status', Invoice::STATUS_PAID)
+            ->whereYear('invoices.updated_at', now()->year)
+            ->whereMonth('invoices.updated_at', now()->month)
+            ->sum('invoices.amount');
+
+        $profitEstimate = $paidIncomeThisMonth - $expensesThisMonth;
 
         $upcomingJobs = $user->jobs()
             ->with('client')
@@ -64,6 +78,8 @@ class DashboardController extends Controller
             'overdueTotal',
             'quotesAwaitingResponse',
             'activeJobs',
+            'expensesThisMonth',
+            'profitEstimate',
             'upcomingJobs',
             'recentClients',
             'recentQuotes',

@@ -93,6 +93,29 @@
             @endif
         </x-ui.panel>
 
+        <x-ui.panel title="Expenses" :href="route('expenses.create', ['job_id' => $job->id])" linkText="Add expense">
+            @if ($job->expenses->isEmpty())
+                <p class="px-5 py-8 text-center text-sm text-slate-500">No expenses linked to this job yet.</p>
+            @else
+                <div class="overflow-x-auto">
+                    <table class="data-table">
+                        <thead><tr><th>Date</th><th>Supplier</th><th>Category</th><th>Amount</th><th></th></tr></thead>
+                        <tbody>
+                            @foreach ($job->expenses as $expense)
+                                <tr>
+                                    <td class="text-slate-600">{{ $expense->expense_date->format('d M Y') }}</td>
+                                    <td><a href="{{ route('expenses.show', $expense) }}" class="font-semibold text-slate-900 hover:text-brand-600">{{ $expense->supplier }}</a></td>
+                                    <td>@include('expenses._category-badge', ['category' => $expense->category])</td>
+                                    <td class="font-semibold">{{ $expense->formattedAmount() }}</td>
+                                    <td class="text-right"><a href="{{ route('expenses.show', $expense) }}" class="text-sm font-medium text-brand-600">View</a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </x-ui.panel>
+
         <x-ui.card class="p-6">
             <h3 class="text-sm font-semibold text-red-600">Delete Job</h3>
             <p class="mt-1 text-sm text-slate-500">Once deleted, this job and its details cannot be recovered.</p>
