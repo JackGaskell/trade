@@ -16,7 +16,7 @@
     </head>
     <body class="font-sans bg-surface text-slate-900 antialiased">
         <div class="flex min-h-screen flex-col items-center justify-center px-4 py-12">
-            <x-ui.logo href="{{ url('/') }}" size="lg" class="mb-10" />
+            <x-ui.logo href="{{ url('/') }}" size="lg" :show-tagline="true" class="mb-10" />
 
             <div class="w-full max-w-md rounded-2xl border border-slate-200/80 bg-white p-8 shadow-card-md">
                 {{ $slot }}

@@ -1,6 +1,7 @@
 @props([
     'href' => null,
     'showText' => true,
+    'showTagline' => false,
     'size' => 'sm',
     'subtitle' => null,
     'taglineStyle' => 'label',
@@ -10,51 +11,66 @@
     $href ??= auth()->check() ? route('dashboard') : url('/');
 
     $name = config('brand.name');
-    $tagline = $subtitle ?? null;
+    $logoTagline = $subtitle ?? ($showTagline ? config('brand.logo_tagline') : null);
+
+    $hammerGradientId = 'hammer-'.substr(uniqid(), -8);
 
     $sizes = [
         'sm' => [
-            'accent' => 'logo-accent-sm',
+            'mark' => 'logo-mark-sm',
+            'icon' => 'logo-mark-icon-sm',
             'wordmark' => 'logo-wordmark-sm',
             'tagline' => 'logo-tagline-sm',
         ],
         'md' => [
-            'accent' => 'logo-accent-md',
+            'mark' => 'logo-mark-md',
+            'icon' => 'logo-mark-icon-md',
             'wordmark' => 'logo-wordmark-md',
             'tagline' => 'logo-tagline-md',
         ],
         'lg' => [
-            'accent' => 'logo-accent-lg',
+            'mark' => 'logo-mark-lg',
+            'icon' => 'logo-mark-icon-lg',
             'wordmark' => 'logo-wordmark-lg',
             'tagline' => 'logo-tagline-lg',
         ],
     ];
 
     $s = $sizes[$size] ?? $sizes['sm'];
+
+    $lockupClasses = collect([
+        'logo-lockup',
+        $showText ? '' : 'logo-lockup-icon-only',
+        $logoTagline && $showText ? 'logo-lockup-with-tagline' : '',
+    ])->filter()->implode(' ');
 @endphp
 
 @if ($href)
-    <a href="{{ $href }}" {{ $attributes->class('logo-lockup') }} aria-label="{{ $name }} — home">
+    <a href="{{ $href }}" {{ $attributes->class($lockupClasses) }} aria-label="{{ $name }} — home">
 @else
-    <div {{ $attributes->class('logo-lockup') }}>
+    <div {{ $attributes->class($lockupClasses) }}>
 @endif
+        <div class="logo-mark {{ $s['mark'] }}" aria-hidden="true">
+            <x-ui.logo-symbol :gradient-id="$hammerGradientId" class="{{ $s['icon'] }}" />
+        </div>
+
         @if ($showText)
-            <span class="logo-accent {{ $s['accent'] }}" aria-hidden="true"></span>
-            <p class="logo-wordmark {{ $s['wordmark'] }}">
-                <span class="logo-wordmark-the">The</span>
-                <span class="logo-wordmark-accent">Trade</span>
-                <span class="logo-wordmark-tool">Tool</span>
-            </p>
-            @if ($tagline)
-                <p @class([
-                    'col-start-2 row-start-2',
-                    'logo-tagline-caption' => $taglineStyle === 'caption',
-                    $s['tagline'] => $taglineStyle !== 'caption',
-                ])>{{ $tagline }}</p>
-            @endif
+            <div class="logo-lockup-text">
+                <p class="logo-wordmark {{ $s['wordmark'] }}">
+                    <span class="logo-wordmark-the">The</span>
+                    <span class="logo-wordmark-accent">Trade</span>
+                    <span class="logo-wordmark-tool">Tool</span>
+                </p>
+                @if ($logoTagline)
+                    <p @class([
+                        'logo-tagline',
+                        'logo-tagline-caption' => $taglineStyle === 'caption',
+                        $s['tagline'] => $taglineStyle !== 'caption',
+                    ])>{{ $logoTagline }}</p>
+                @endif
+            </div>
         @else
-            <span class="logo-accent logo-accent-icon col-span-2" aria-hidden="true"></span>
-            <span class="sr-only col-span-2">{{ $name }}</span>
+            <span class="sr-only">{{ $name }}</span>
         @endif
 @if ($href)
     </a>

@@ -13,8 +13,22 @@ return [
 
     'name' => 'The Trade Tool',
 
-    'tagline' => 'Business finance for UK trades',
+    'tagline' => 'Made for UK tradespeople on site',
+
+    /** Shown under the wordmark in logo lockups (welcome, auth). */
+    'logo_tagline' => 'Jobs. Quotes. Invoices. Paid.',
 
     'monogram' => 'TT',
+
+    'trades' => [
+        'Electricians',
+        'Plumbers',
+        'Builders',
+        'Roofers',
+        'Joiners',
+        'Gas engineers',
+        'Painters',
+        'Landscapers',
+    ],
 
 ];
