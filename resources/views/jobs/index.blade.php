@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-ui.page-header title="Jobs" description="Track work from enquiry through to completion.">
         <x-slot name="actions">
-            <a href="{{ route('jobs.create') }}" class="btn-primary">
+            <x-ui.open-modal-button modal="create-job">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
                 New Job
-            </a>
+            </x-ui.open-modal-button>
         </x-slot>
     </x-ui.page-header>
 
@@ -17,7 +17,7 @@
             <x-ui.empty-state
                 message="No jobs yet. Create a job for one of your clients."
                 actionLabel="New Job"
-                :actionHref="route('jobs.create')"
+                actionModal="create-job"
             />
         @else
             <div class="overflow-x-auto">
@@ -70,4 +70,6 @@
             @endif
         @endif
     </x-ui.card>
+
+    @include('jobs._create-modal')
 </x-app-layout>

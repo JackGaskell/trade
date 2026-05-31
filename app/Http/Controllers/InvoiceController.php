@@ -33,18 +33,20 @@ class InvoiceController extends Controller
             ->whereIn('status', Invoice::UNPAID_STATUSES)
             ->sum('amount');
 
-        return view('invoices.index', compact('invoices', 'totalUnpaid'));
+        $jobs = auth()->user()->jobs()->with('client')->latest()->get();
+
+        return view('invoices.index', compact('invoices', 'totalUnpaid', 'jobs'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request): View
+    public function create(Request $request): RedirectResponse
     {
-        $jobs = auth()->user()->jobs()->with('client')->latest()->get();
-        $selectedJobId = $request->query('job_id');
-
-        return view('invoices.create', compact('jobs', 'selectedJobId'));
+        return redirect()->route('invoices.index', array_filter([
+            'open' => 'create-invoice',
+            'job_id' => $request->query('job_id'),
+        ]));
     }
 
     /**

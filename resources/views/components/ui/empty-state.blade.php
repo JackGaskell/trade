@@ -1,4 +1,4 @@
-@props(['message', 'actionLabel' => null, 'actionHref' => null])
+@props(['message', 'actionLabel' => null, 'actionHref' => null, 'actionModal' => null])
 
 <div {{ $attributes->merge(['class' => 'flex flex-col items-center justify-center px-6 py-16 text-center']) }}>
     <div class="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
@@ -7,7 +7,9 @@
         </svg>
     </div>
     <p class="mt-4 max-w-sm text-sm text-slate-500">{{ $message }}</p>
-    @if ($actionLabel && $actionHref)
+    @if ($actionLabel && $actionModal)
+        <x-ui.open-modal-button :modal="$actionModal" class="mt-6">{{ $actionLabel }}</x-ui.open-modal-button>
+    @elseif ($actionLabel && $actionHref)
         <a href="{{ $actionHref }}" class="btn-primary mt-6">{{ $actionLabel }}</a>
     @endif
 </div>

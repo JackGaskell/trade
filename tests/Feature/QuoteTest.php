@@ -83,12 +83,12 @@ class QuoteTest extends TestCase
         ['user' => $user, 'job' => $job] = $this->createUserWithJob();
 
         $this->actingAs($user)
-            ->from(route('quotes.create'))
+            ->from(route('quotes.index'))
             ->post(route('quotes.store'), [
                 'job_id' => $job->id,
                 'status' => Quote::STATUS_DRAFT,
             ])
-            ->assertRedirect(route('quotes.create'))
+            ->assertRedirect(route('quotes.index'))
             ->assertSessionHasErrors('amount');
     }
 
@@ -170,6 +170,10 @@ class QuoteTest extends TestCase
 
         $this->actingAs($user)
             ->get(route('quotes.create', ['job_id' => $job->id]))
+            ->assertRedirect(route('quotes.index', ['open' => 'create-quote', 'job_id' => $job->id]));
+
+        $this->actingAs($user)
+            ->get(route('quotes.index', ['open' => 'create-quote', 'job_id' => $job->id]))
             ->assertOk()
             ->assertSee('Garden Decking');
     }

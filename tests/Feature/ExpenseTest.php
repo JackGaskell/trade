@@ -121,7 +121,7 @@ class ExpenseTest extends TestCase
         ['job' => $otherJob] = $this->createUserWithJob();
 
         $this->actingAs($user)
-            ->from(route('expenses.create'))
+            ->from(route('expenses.index'))
             ->post(route('expenses.store'), [
                 'expense_date' => '2026-05-10',
                 'supplier' => 'Invalid Job Link',

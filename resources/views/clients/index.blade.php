@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-ui.page-header title="Clients" description="Manage your customers and their contact details.">
         <x-slot name="actions">
-            <a href="{{ route('clients.create') }}" class="btn-primary">
+            <x-ui.open-modal-button modal="create-client">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
                 New Client
-            </a>
+            </x-ui.open-modal-button>
         </x-slot>
     </x-ui.page-header>
 
@@ -17,7 +17,7 @@
             <x-ui.empty-state
                 message="No clients yet. Add your first client to get started."
                 actionLabel="New Client"
-                :actionHref="route('clients.create')"
+                actionModal="create-client"
             />
         @else
             <div class="overflow-x-auto">
@@ -75,4 +75,6 @@
             @endif
         @endif
     </x-ui.card>
+
+    @include('clients._create-modal')
 </x-app-layout>

@@ -28,18 +28,20 @@ class JobController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('jobs.index', compact('jobs'));
+        $clients = auth()->user()->clients()->orderBy('name')->get();
+
+        return view('jobs.index', compact('jobs', 'clients'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request): View
+    public function create(Request $request): RedirectResponse
     {
-        $clients = auth()->user()->clients()->orderBy('name')->get();
-        $selectedClientId = $request->query('client_id');
-
-        return view('jobs.create', compact('clients', 'selectedClientId'));
+        return redirect()->route('jobs.index', array_filter([
+            'open' => 'create-job',
+            'client_id' => $request->query('client_id'),
+        ]));
     }
 
     /**
