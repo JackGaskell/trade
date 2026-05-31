@@ -5,6 +5,7 @@
         ['route' => 'jobs.index', 'label' => 'Jobs', 'icon' => 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'],
         ['route' => 'quotes.index', 'label' => 'Quotes', 'icon' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'],
         ['route' => 'invoices.index', 'label' => 'Invoices', 'icon' => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+        ['route' => 'settings.business.edit', 'label' => 'Business', 'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'],
     ];
 @endphp
 
@@ -47,8 +48,9 @@
         <div class="rounded-lg bg-slate-50 p-3">
             <p class="text-xs font-medium text-slate-500">{{ Auth::user()->name }}</p>
             <p class="mt-0.5 truncate text-xs text-slate-400">{{ Auth::user()->email }}</p>
-            <div class="mt-3 flex gap-2">
+            <div class="mt-3 flex flex-wrap gap-x-3 gap-y-1">
                 <a href="{{ route('profile.edit') }}" class="text-xs font-medium text-slate-600 hover:text-slate-900">{{ __('Profile') }}</a>
+                <a href="{{ route('settings.business.edit') }}" class="text-xs font-medium text-slate-600 hover:text-slate-900">{{ __('Business') }}</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="text-xs font-medium text-slate-600 hover:text-slate-900">{{ __('Log out') }}</button>

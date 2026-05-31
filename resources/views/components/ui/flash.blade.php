@@ -14,6 +14,7 @@
             'invoice-updated' => 'Invoice updated successfully.',
             'invoice-deleted' => 'Invoice deleted successfully.',
             'profile-updated' => 'Profile updated successfully.',
+            'business-profile-updated' => 'Business profile saved successfully.',
         ];
         $message = $messages[session('status')] ?? session('status');
     @endphp
