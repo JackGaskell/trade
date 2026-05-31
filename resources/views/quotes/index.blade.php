@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-ui.page-header title="Quotes" description="Send quotes and track client responses.">
         <x-slot name="actions">
-            <a href="{{ route('quotes.create') }}" class="btn-primary">
+            <x-ui.open-modal-button modal="create-quote">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
                 New Quote
-            </a>
+            </x-ui.open-modal-button>
         </x-slot>
     </x-ui.page-header>
 
@@ -17,7 +17,7 @@
             <x-ui.empty-state
                 message="No quotes yet. Create a quote for one of your jobs."
                 actionLabel="New Quote"
-                :actionHref="route('quotes.create')"
+                actionModal="create-quote"
             />
         @else
             <div class="overflow-x-auto">
@@ -72,4 +72,6 @@
             @endif
         @endif
     </x-ui.card>
+
+    @include('quotes._create-modal')
 </x-app-layout>

@@ -47,7 +47,7 @@
             </dl>
         </x-ui.card>
 
-        <x-ui.panel title="Quotes" :href="route('quotes.create', ['job_id' => $job->id])" linkText="Add quote">
+        <x-ui.panel title="Quotes" :href="route('quotes.index', ['open' => 'create-quote', 'job_id' => $job->id])" linkText="Add quote">
             @if ($job->quotes->isEmpty())
                 <p class="px-5 py-8 text-center text-sm text-slate-500">No quotes for this job yet.</p>
             @else
@@ -70,7 +70,7 @@
             @endif
         </x-ui.panel>
 
-        <x-ui.panel title="Invoices" :href="route('invoices.create', ['job_id' => $job->id])" linkText="Add invoice">
+        <x-ui.panel title="Invoices" :href="route('invoices.index', ['open' => 'create-invoice', 'job_id' => $job->id])" linkText="Add invoice">
             @if ($job->invoices->isEmpty())
                 <p class="px-5 py-8 text-center text-sm text-slate-500">No invoices for this job yet.</p>
             @else
@@ -93,7 +93,7 @@
             @endif
         </x-ui.panel>
 
-        <x-ui.panel title="Expenses" :href="route('expenses.create', ['job_id' => $job->id])" linkText="Add expense">
+        <x-ui.panel title="Expenses" :href="route('expenses.index', ['open' => 'create-expense', 'job_id' => $job->id])" linkText="Add expense">
             @if ($job->expenses->isEmpty())
                 <p class="px-5 py-8 text-center text-sm text-slate-500">No expenses linked to this job yet.</p>
             @else

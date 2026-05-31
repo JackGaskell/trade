@@ -27,18 +27,20 @@ class QuoteController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('quotes.index', compact('quotes'));
+        $jobs = auth()->user()->jobs()->with('client')->latest()->get();
+
+        return view('quotes.index', compact('quotes', 'jobs'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request): View
+    public function create(Request $request): RedirectResponse
     {
-        $jobs = auth()->user()->jobs()->with('client')->latest()->get();
-        $selectedJobId = $request->query('job_id');
-
-        return view('quotes.create', compact('jobs', 'selectedJobId'));
+        return redirect()->route('quotes.index', array_filter([
+            'open' => 'create-quote',
+            'job_id' => $request->query('job_id'),
+        ]));
     }
 
     /**

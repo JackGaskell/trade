@@ -70,13 +70,13 @@ class JobTest extends TestCase
         ['user' => $user, 'client' => $client] = $this->createUserWithClient();
 
         $this->actingAs($user)
-            ->from(route('jobs.create'))
+            ->from(route('jobs.index'))
             ->post(route('jobs.store'), [
                 'client_id' => $client->id,
                 'title' => '',
                 'status' => Job::STATUS_ENQUIRY,
             ])
-            ->assertRedirect(route('jobs.create'))
+            ->assertRedirect(route('jobs.index'))
             ->assertSessionHasErrors('title');
     }
 
@@ -156,8 +156,12 @@ class JobTest extends TestCase
     {
         ['user' => $user, 'client' => $client] = $this->createUserWithClient();
 
+        $this->actingAs($user)
+            ->get(route('jobs.create', ['client_id' => $client->id]))
+            ->assertRedirect(route('jobs.index', ['open' => 'create-job', 'client_id' => $client->id]));
+
         $response = $this->actingAs($user)
-            ->get(route('jobs.create', ['client_id' => $client->id]));
+            ->get(route('jobs.index', ['open' => 'create-job', 'client_id' => $client->id]));
 
         $response->assertOk();
         $response->assertSee('value="'.$client->id.'"', false);

@@ -45,7 +45,7 @@
             </dl>
         </x-ui.card>
 
-        <x-ui.panel title="Jobs" :href="route('jobs.create', ['client_id' => $client->id])" linkText="Add job">
+        <x-ui.panel title="Jobs" :href="route('jobs.index', ['open' => 'create-job', 'client_id' => $client->id])" linkText="Add job">
             @if ($client->jobs->isEmpty())
                 <p class="px-5 py-8 text-center text-sm text-slate-500">No jobs for this client yet.</p>
             @else

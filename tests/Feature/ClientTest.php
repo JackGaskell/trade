@@ -40,14 +40,18 @@ class ClientTest extends TestCase
             ->assertDontSee('Someone Else');
     }
 
-    public function test_user_can_view_create_client_form(): void
+    public function test_create_client_route_opens_modal_on_index(): void
     {
         $user = User::factory()->create();
 
         $this->actingAs($user)
             ->get(route('clients.create'))
+            ->assertRedirect(route('clients.index', ['open' => 'create-client']));
+
+        $this->actingAs($user)
+            ->get(route('clients.index', ['open' => 'create-client']))
             ->assertOk()
-            ->assertSee('New Client');
+            ->assertSee('New client');
     }
 
     public function test_user_can_create_a_client(): void
@@ -77,9 +81,9 @@ class ClientTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->from(route('clients.create'))
+            ->from(route('clients.index'))
             ->post(route('clients.store'), ['name' => ''])
-            ->assertRedirect(route('clients.create'))
+            ->assertRedirect(route('clients.index'))
             ->assertSessionHasErrors('name');
 
         $this->assertDatabaseCount('clients', 0);

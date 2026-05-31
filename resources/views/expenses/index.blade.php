@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-ui.page-header title="Expenses" description="Track business costs for tax and job profitability.">
         <x-slot name="actions">
-            <a href="{{ route('expenses.create') }}" class="btn-primary">
+            <x-ui.open-modal-button modal="create-expense">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
                 New Expense
-            </a>
+            </x-ui.open-modal-button>
         </x-slot>
     </x-ui.page-header>
 
@@ -25,7 +25,7 @@
             <x-ui.empty-state
                 message="No expenses recorded yet. Add your first receipt to start tracking costs."
                 actionLabel="New Expense"
-                :actionHref="route('expenses.create')"
+                actionModal="create-expense"
             />
         @else
             <div class="overflow-x-auto">
@@ -92,4 +92,6 @@
             @endif
         @endif
     </x-ui.card>
+
+    @include('expenses._create-modal')
 </x-app-layout>

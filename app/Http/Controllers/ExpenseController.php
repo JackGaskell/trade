@@ -34,16 +34,18 @@ class ExpenseController extends Controller
             ->whereMonth('expense_date', now()->month)
             ->sum('amount');
 
-        return view('expenses.index', compact('expenses', 'expensesThisMonth'));
+        $jobs = $user->jobs()->with('client')->latest()->get();
+        $vatRegistered = (bool) $user->businessProfile?->vat_registered;
+
+        return view('expenses.index', compact('expenses', 'expensesThisMonth', 'jobs', 'vatRegistered'));
     }
 
-    public function create(Request $request): View
+    public function create(Request $request): RedirectResponse
     {
-        $jobs = auth()->user()->jobs()->with('client')->latest()->get();
-        $selectedJobId = $request->query('job_id');
-        $vatRegistered = (bool) auth()->user()->businessProfile?->vat_registered;
-
-        return view('expenses.create', compact('jobs', 'selectedJobId', 'vatRegistered'));
+        return redirect()->route('expenses.index', array_filter([
+            'open' => 'create-expense',
+            'job_id' => $request->query('job_id'),
+        ]));
     }
 
     public function store(StoreExpenseRequest $request): RedirectResponse
