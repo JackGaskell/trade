@@ -12,22 +12,21 @@
 
 <aside
     :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-    class="fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-slate-200/80 bg-white transition-transform duration-200 ease-in-out lg:translate-x-0"
+    class="fixed inset-y-0 left-0 z-50 flex w-60 flex-col border-r border-slate-200/80 bg-white transition-transform duration-200 ease-in-out lg:translate-x-0"
 >
-    <div class="flex h-16 items-center gap-3 border-b border-slate-200/80 px-5">
-        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-white">
+    <div class="flex h-14 items-center gap-3 px-5">
+        <div class="brand-mark">
             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
         </div>
         <div>
             <p class="text-sm font-bold tracking-tight text-slate-900">The Trade Tool</p>
-            <p class="text-[11px] font-medium text-slate-500">Business command centre</p>
+            <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Finance</p>
         </div>
     </div>
 
-    <nav class="flex-1 space-y-1 px-3 py-4">
+    <nav class="flex-1 space-y-0.5 px-3 py-2">
         @foreach ($navItems as $item)
             @php
                 $isActive = request()->routeIs(str_replace('.index', '.*', $item['route'])) || request()->routeIs($item['route']);
@@ -37,7 +36,7 @@
                 class="sidebar-link {{ $isActive ? 'sidebar-link-active' : '' }}"
                 @click="sidebarOpen = false"
             >
-                <svg class="h-5 w-5 shrink-0 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="h-[18px] w-[18px] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $item['icon'] }}" />
                 </svg>
                 {{ __($item['label']) }}
@@ -45,16 +44,15 @@
         @endforeach
     </nav>
 
-    <div class="border-t border-slate-200/80 p-4">
-        <div class="rounded-lg bg-slate-50 p-3">
-            <p class="text-xs font-medium text-slate-500">{{ Auth::user()->name }}</p>
-            <p class="mt-0.5 truncate text-xs text-slate-400">{{ Auth::user()->email }}</p>
-            <div class="mt-3 flex flex-wrap gap-x-3 gap-y-1">
-                <a href="{{ route('profile.edit') }}" class="text-xs font-medium text-slate-600 hover:text-slate-900">{{ __('Profile') }}</a>
-                <a href="{{ route('settings.business.edit') }}" class="text-xs font-medium text-slate-600 hover:text-slate-900">{{ __('Business') }}</a>
+    <div class="border-t border-slate-100 p-3">
+        <div class="rounded-xl bg-slate-50 p-3">
+            <p class="truncate text-xs font-semibold text-slate-900">{{ Auth::user()->name }}</p>
+            <p class="truncate text-[11px] text-slate-500">{{ Auth::user()->email }}</p>
+            <div class="mt-2.5 flex gap-3">
+                <a href="{{ route('profile.edit') }}" class="text-[11px] font-semibold text-slate-500 hover:text-cyan-600">{{ __('Profile') }}</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="text-xs font-medium text-slate-600 hover:text-slate-900">{{ __('Log out') }}</button>
+                    <button type="submit" class="text-[11px] font-semibold text-slate-500 hover:text-cyan-600">{{ __('Log out') }}</button>
                 </form>
             </div>
         </div>

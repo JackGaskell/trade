@@ -53,13 +53,13 @@
                             @endphp
                             <tr class="{{ $rowHighlight }}">
                                 <td>
-                                    <a href="{{ route('invoices.show', $invoice) }}" class="font-semibold text-slate-900 hover:text-brand-600">
+                                    <a href="{{ route('invoices.show', $invoice) }}" class="row-link">
                                         {{ $invoice->invoice_number }}
                                     </a>
                                     <p class="mt-0.5 text-xs text-slate-500 sm:hidden">{{ $invoice->job->client->name }}</p>
                                 </td>
                                 <td class="hidden sm:table-cell">
-                                    <a href="{{ route('clients.show', $invoice->job->client) }}" class="text-slate-600 hover:text-brand-600">
+                                    <a href="{{ route('clients.show', $invoice->job->client) }}" class="text-slate-600 hover:text-cyan-600">
                                         {{ $invoice->job->client->name }}
                                     </a>
                                 </td>

@@ -123,7 +123,7 @@
 
         @if ($expense?->hasReceipt())
             <div class="mt-3 flex flex-wrap items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-                <a href="{{ route('expenses.receipt', $expense) }}" class="text-sm font-medium text-brand-600 hover:text-brand-700" target="_blank">
+                <a href="{{ route('expenses.receipt', $expense) }}" class="text-link text-sm" target="_blank">
                     View current receipt
                 </a>
                 <label class="flex items-center gap-2 text-sm text-slate-600">

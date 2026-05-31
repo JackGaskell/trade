@@ -73,6 +73,8 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $clientsCount = $user->clients()->count();
+
         return view('dashboard', compact(
             'outstandingTotal',
             'overdueTotal',
@@ -80,6 +82,7 @@ class DashboardController extends Controller
             'activeJobs',
             'expensesThisMonth',
             'profitEstimate',
+            'clientsCount',
             'upcomingJobs',
             'recentClients',
             'recentQuotes',

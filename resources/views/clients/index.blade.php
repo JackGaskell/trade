@@ -41,7 +41,7 @@
                             @endphp
                             <tr>
                                 <td>
-                                    <a href="{{ route('clients.show', $client) }}" class="font-semibold text-slate-900 hover:text-brand-600">
+                                    <a href="{{ route('clients.show', $client) }}" class="row-link">
                                         {{ $client->name }}
                                     </a>
                                     <p class="mt-0.5 text-xs text-slate-500 sm:hidden">{{ $client->phone ?? $client->email ?? '—' }}</p>

@@ -32,7 +32,7 @@
                     <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Linked job</dt>
                     <dd class="mt-1 text-sm text-slate-900">
                         @if ($expense->job)
-                            <a href="{{ route('jobs.show', $expense->job) }}" class="font-medium text-brand-600 hover:text-brand-700">{{ $expense->job->title }}</a>
+                            <a href="{{ route('jobs.show', $expense->job) }}" class="text-link">{{ $expense->job->title }}</a>
                             <span class="text-slate-500"> — {{ $expense->job->client->name }}</span>
                         @else
                             General business expense
@@ -43,7 +43,7 @@
                     <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Receipt</dt>
                     <dd class="mt-1 text-sm text-slate-900">
                         @if ($expense->hasReceipt())
-                            <a href="{{ route('expenses.receipt', $expense) }}" class="font-medium text-brand-600 hover:text-brand-700" target="_blank">
+                            <a href="{{ route('expenses.receipt', $expense) }}" class="text-link" target="_blank">
                                 {{ $expense->receipt_original_name ?? 'View receipt' }}
                             </a>
                         @else
